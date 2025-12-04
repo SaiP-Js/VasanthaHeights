@@ -48,7 +48,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "vasanthaheights.context_processors.site_contact",
+                "vasanthaheights.context_processor.site_contact",
             ],
         },
     },
@@ -78,3 +78,4 @@ LEASING_ADDRESS = os.environ.get("LEASING_ADDRESS", "")
 LEASING_PHONE = os.environ.get("LEASING_PHONE", "")
 LEASING_EMAIL = os.environ.get("LEASING_EMAIL", "")
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+AUTH_USER_MODEL = "accounts.User"

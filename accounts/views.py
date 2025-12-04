@@ -1,25 +1,30 @@
-from .forms import RegistrationForm
+from django.contrib import messages
+from django.contrib.auth import login, get_user_model
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth import login
-from .models import User, EmailOTP
+
+from .forms import RegistrationForm
+from .models import EmailOTP
+
+
+User = get_user_model()
 
 
 def register_request(request):
     if request.method == "POST":
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            # Don’t create user yet – wait for OTP verification
+            # Store everything needed for OTP verification in session
             request.session["registration_data"] = {
                 "first_name": form.cleaned_data["first_name"],
                 "last_name": form.cleaned_data["last_name"],
-                "phone": form.cleaned_data["phone"],
+                "phone": form.cleaned_data["phone"],       # extra (not on User model)
                 "email": form.cleaned_data["email"],
-                "address": form.cleaned_data["address"],
+                "address": form.cleaned_data["address"],   # extra (not on User model)
                 "password": form.cleaned_data["password"],
             }
 
+            # Create OTP and send email
             otp_obj = EmailOTP.create_otp(form.cleaned_data["email"])
             send_mail(
                 subject="Your Vasantha Heights verification code",
@@ -34,6 +39,8 @@ def register_request(request):
         form = RegistrationForm()
 
     return render(request, "accounts/register.html", {"form": form})
+
+
 def verify_otp(request):
     # Registration data should have been stored in session by the register view
     reg_data = request.session.get("registration_data")
@@ -48,12 +55,15 @@ def verify_otp(request):
 
         # Find latest OTP for this email + code
         try:
-            otp_obj = EmailOTP.objects.filter(email=email, code=code).latest("created_at")
+            otp_obj = EmailOTP.objects.filter(
+                email=email,
+                code=code,
+            ).latest("created_at")
         except EmailOTP.DoesNotExist:
             messages.error(request, "Invalid code. Please check and try again.")
             return render(request, "accounts/verify_otp.html", {"email": email})
 
-        # Check expiry / reuse using the helper we defined on the model
+        # Check expiry / reuse using the helper defined on the model
         if not otp_obj.is_valid():
             messages.error(request, "This code has expired or was already used.")
             return render(request, "accounts/verify_otp.html", {"email": email})
@@ -68,18 +78,15 @@ def verify_otp(request):
             email=email,
             first_name=reg_data["first_name"],
             last_name=reg_data["last_name"],
-            phone=reg_data["phone"],
-            address=reg_data["address"],
-            is_tenant=True,
         )
         user.set_password(reg_data["password"])
         user.save()
 
+        # TODO: later you can create a TenantProfile here and store:
+        #   reg_data["phone"], reg_data["address"]
+
         # Clear session registration data
-        try:
-            del request.session["registration_data"]
-        except KeyError:
-            pass
+        request.session.pop("registration_data", None)
 
         # Log in and send them to tenant dashboard
         login(request, user)

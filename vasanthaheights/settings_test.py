@@ -48,7 +48,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "vasanthaheights.context_processors.site_contact",
+                "vasanthaheights.context_processor.site_contact",
             ],
         },
     },
@@ -76,3 +76,4 @@ LEASING_NAME = "Vasantha Heights"
 LEASING_ADDRESS = "Hyderabad, Telangana, India"
 LEASING_PHONE = "+91-814-258-7451"
 LEASING_EMAIL = "test@gmail.com"
+AUTH_USER_MODEL = "accounts.User"

@@ -5,36 +5,46 @@ User = get_user_model()
 
 
 class RegistrationForm(forms.ModelForm):
+    # EXTRA FIELDS that are NOT part of User model
+    phone = forms.CharField(
+        max_length=20,
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder": "Phone number"})
+    )
+    address = forms.CharField(
+        required=True,
+        widget=forms.Textarea(attrs={"placeholder": "Current address", "rows": 2})
+    )
+
+    # PASSWORD FIELDS
     password = forms.CharField(
         label="Password",
-        widget=forms.PasswordInput(attrs={
-            "placeholder": "Create password"
-        })
+        widget=forms.PasswordInput(attrs={"placeholder": "Create password"})
     )
     confirm_password = forms.CharField(
         label="Confirm Password",
-        widget=forms.PasswordInput(attrs={
-            "placeholder": "Re-enter password"
-        })
+        widget=forms.PasswordInput(attrs={"placeholder": "Re-enter password"})
     )
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "phone", "email", "address"]
+        # Only fields that actually exist on User model
+        fields = ["first_name", "last_name", "email"]
+
         widgets = {
             "first_name": forms.TextInput(attrs={"placeholder": "First name"}),
             "last_name": forms.TextInput(attrs={"placeholder": "Last name"}),
-            "phone": forms.TextInput(attrs={"placeholder": "Phone number"}),
             "email": forms.EmailInput(attrs={"placeholder": "Email address"}),
-            "address": forms.Textarea(attrs={"placeholder": "Current address", "rows": 2}),
         }
 
+    # EMAIL VALIDATION
     def clean_email(self):
         email = self.cleaned_data["email"].lower()
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("An account with this email already exists.")
         return email
 
+    # PASSWORD MATCH VALIDATION
     def clean(self):
         cleaned = super().clean()
         pwd = cleaned.get("password")
@@ -42,4 +52,5 @@ class RegistrationForm(forms.ModelForm):
 
         if pwd and cpwd and pwd != cpwd:
             self.add_error("confirm_password", "Passwords do not match.")
+
         return cleaned

@@ -77,3 +77,4 @@ LEASING_NAME = os.environ.get("LEASING_NAME", "")
 LEASING_ADDRESS = os.environ.get("LEASING_ADDRESS", "")
 LEASING_PHONE = os.environ.get("LEASING_PHONE", "")
 LEASING_EMAIL = os.environ.get("LEASING_EMAIL", "")
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

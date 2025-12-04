@@ -5,13 +5,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-secret-key-only-for-local")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
-DEBUG = False
 
-ALLOWED_HOSTS = [
-    "vasanthaheights.com",
-    "www.vasanthaheights.com",
-    "your-render-app-name.onrender.com",  # update after you create the app
-]
+
+#production
+#ALLOWED_HOSTS = [
+#    "vasanthaheights.com",
+#    "www.vasanthaheights.com",
+#    "your-render-app-name.onrender.com",  # update after you create the app
+#]
+#DEBUG = False
+
+
+#localDevelopment
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+DEBUG = True
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,6 +59,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'vasanthaheights.context_processor.site_contact',
             ],
         },
     },
@@ -85,4 +94,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'vasanthanivas2@gmail.com'
+CONTACT_PHONE = os.environ.get("CONTACT_PHONE", "")
+CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "")

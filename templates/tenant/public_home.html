@@ -162,8 +162,12 @@
             <h3>Leasing Info</h3>
             <p><strong>Vasantha Heights</strong></p>
             <p>Hyderabad, Telangana, India</p>
-            <p>Phone: +91-814-257-7191</p>
-            <p>Email: vasanthanivas@gmail.com</p>
+            {% if LEASING_PHONE %}
+             <p>Phone: {{ LEASING_PHONE }}</p>
+            {% endif %}
+            {% if LEASING_EMAIL %}
+            <p>Email: {{ LEASING_EMAIL }}</p>
+            {% endif %}
             <p class="vh-contact-disclaimer">
                 *All details, layouts, and amenities are indicative. Final specifications may vary.
             </p>

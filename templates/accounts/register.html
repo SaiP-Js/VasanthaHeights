@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="vh-auth-page">
+    <div class="vh-auth-inner">
+
+        <!-- LEFT: CREATE ACCOUNT (APPLY ONLINE) -->
+        <div class="vh-auth-main">
+            <h1>Apply Online</h1>
+            <h2>Create an Account to Begin</h2>
+
+            <p class="vh-auth-text">
+                Completing your Vasantha Heights application usually takes 15 -20 minutes. If you need to stop at any time during this process, you can return later and access your application using your portal account email address and password. Please remember to save this information in a special place.
+            </p>
+            <p class="vh-auth-text-small">
+                If you have more than 1 applicant applying for one apartment, please do not start individual applications. You will be asked to add additional applicants during this process.
+            </p>
+            <p class="vh-auth-text-small">
+                Make sure to read our Rental Criteria before starting your online application. Please note that application fees are always nonrefundable. To review our Rental Criteria, view and agree to the Terms & Conditions below.
+            </p>
+            <p class="vh-auth-text-small">
+                For any questions, please call +91(814)-257-7191.
+            </p>
+            <p class="vh-auth-text-small">
+                Please make sure the details below match the primary applicant’s information.
+                Fields marked with <span class="vh-required">*</span> are required.
+            </p>
+
+            <form method="post" class="vh-auth-form">
+                {% csrf_token %}
+                <div class="vh-form-group">
+                    <label>Legal First Name <span class="vh-required">*</span></label>
+                    {{ form.first_name }}
+                </div>
+                <div class="vh-form-group">
+                    <label>Last Name <span class="vh-required">*</span></label>
+                    {{ form.last_name }}
+                </div>
+                <div class="vh-form-group">
+                    <label>Phone Number <span class="vh-required">*</span></label>
+                    {{ form.phone }}
+                </div>
+                <div class="vh-form-group">
+                    <label>Email <span class="vh-required">*</span></label>
+                    {{ form.email }}
+                </div>
+                <div class="vh-form-group">
+                    <label>Password <span class="vh-required">*</span></label>
+                    {{ form.password }}
+                </div>
+                <div class="vh-form-group">
+                    <label>Confirm_password <span class="vh-required">*</span></label>
+                    {{ form.confirm_password }}
+                </div>
+
+                <!-- Password is actually set on OTP screen, but
+                     we keep the layout similar with a note. -->
+                <p class="vh-auth-text-small">
+                    After you click <strong>Create Account</strong>, we’ll email you a
+                    one-time verification code (OTP). You’ll use that code on the next
+                    screen to set your password and activate your account.
+                </p>
+
+                <button type="submit" class="vh-btn-solid vh-auth-submit">
+                    Create Account
+                </button>
+            </form>
+        </div>
+
+        <!-- RIGHT: EXISTING ACCOUNT LOGIN -->
+        <aside class="vh-auth-side">
+            <div class="vh-auth-side-section">
+                <h3>Already have an account?</h3>
+                <p class="vh-auth-text-small">
+                    If you’ve already started an application, log in to continue.
+                </p>
+                <form method="post"
+                      action="{% url 'accounts:login' %}"
+                      class="vh-auth-side-form">
+                    {% csrf_token %}
+                    <div class="vh-form-group">
+                        <label>Email</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="vh-form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <button type="submit" class="vh-btn-solid vh-auth-side-submit">
+                        Login
+                    </button>
+                </form>
+                <p class="vh-auth-text-small">
+                    Forgot your password?
+                    <a href="{% url 'accounts:password_reset' %}">Reset it here.</a>
+                </p>
+            </div>
+        </aside>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Owner Dashboard</h1>
+
+<h2>Latest Applications</h2>
+<ul>
+{% for app in applications %}
+    <li>
+        <a href="{% url 'owner:application_detail' app.id %}">
+            {{ app.application_id }} - {{ app.user.email }} - {{ app.unit }}
+        </a>
+    </li>
+{% empty %}
+    <li>No applications.</li>
+{% endfor %}
+</ul>
+
+<h2>Open Requests</h2>
+<ul>
+{% for r in open_requests %}
+    <li>{{ r.title }} - {{ r.tenant.email }} - {{ r.status }}</li>
+{% empty %}
+    <li>No open requests.</li>
+{% endfor %}
+</ul>
+
+<h2>Recent Payments</h2>
+<ul>
+{% for p in recent_payments %}
+    <li>{{ p.paid_at }} - {{ p.tenant.email }} - ₹{{ p.amount }}</li>
+{% empty %}
+    <li>No payments.</li>
+{% endfor %}
+</ul>
+{% endblock %}

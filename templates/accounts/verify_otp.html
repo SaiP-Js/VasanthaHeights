@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="vh-auth-page">
+    <div class="vh-auth-inner" style="max-width: 600px;">
+        <div class="vh-auth-main">
+            <h1>Email Verification</h1>
+            <p class="vh-auth-text">
+                We have sent a one-time verification code (OTP) to
+                <strong>{{ email }}</strong>.
+            </p>
+            <p class="vh-auth-text-small">
+                Enter the 6-digit code below to verify your email and complete your
+                account setup.
+            </p>
+
+            <form method="post" class="vh-auth-form">
+                {% csrf_token %}
+                <div class="vh-form-group">
+                    <label>Verification Code</label>
+                    <input type="text" name="code" maxlength="6" required>
+                </div>
+                <button type="submit" class="vh-btn-solid vh-auth-submit">
+                    Verify &amp; Continue
+                </button>
+            </form>
+
+            <p class="vh-auth-text-small">
+                Didn’t see the email? Check your spam folder. If you still don’t
+                receive it, go back to the registration page and start again.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

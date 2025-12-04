@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="vh-hero">
+    <div class="vh-hero-overlay"></div>
+    <div class="vh-hero-content">
+        <h1>Live at Vasantha Heights</h1>
+        <p>Modern apartments, thoughtful amenities, and house designed for comfortable living in Alwal.</p>
+        <div class="vh-hero-actions">
+            <a href="{% url 'accounts:register' %}" class="vh-btn-solid">Apply Now</a>
+            <a href="#floorplans" class="vh-btn-outline-light">View Floor Plans</a>
+        </div>
+    </div>
+</section>
+
+<section id="why" class="vh-section vh-section-light">
+    <div class="vh-section-inner">
+        <h2>Why Live at Vasantha Heights?</h2>
+        <p class="vh-section-intro">
+            Intentional design meets practical amenities. From well-planned layouts to secure parking and family-friendly common areas, Vasantha Heights is built for day-to-day comfort and long-term living.
+        </p>
+        <div class="vh-card-grid">
+            <div class="vh-card">
+                <h3>Thoughtful Apartments</h3>
+                <p>Spacious units with ample natural light, balconies, and storage designed for real families and daily life.</p>
+            </div>
+            <div class="vh-card">
+                <h3>Everyday Convenience</h3>
+                <p>Lift access, dedicated parking, and 24/7 water supply to keep your routine uninterrupted.</p>
+            </div>
+            <div class="vh-card">
+                <h3>Secure & Connected</h3>
+                <p>Apartment with CCTV coverage and easy access to main roads, schools, shops, and workplaces.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="floorplans" class="vh-section">
+    <div class="vh-section-inner">
+        <h2>Floor Plans & Units</h2>
+        <p class="vh-section-intro">
+            Choose from practical unit types suitable for families, working professionals, or shared living.
+        </p>
+        <div class="vh-card-grid vh-card-grid-2">
+            <div class="vh-card">
+                <h3>1 BHK Units</h3>
+                <p>Ideal for small families and couples needing a separate workspace or children’s room.</p>
+                <ul class="vh-list">
+                    <li>Approx. 575–625 sq. ft.</li>
+                    <li>Balcony in living or bedroom</li>
+                    <li>Dedicated parking*</li>
+                </ul>
+            </div>
+            <div class="vh-card">
+                <h3>2 BHK Units</h3>
+                <p>Extra room for extended family, office setup, or guests without losing living space.</p>
+                <ul class="vh-list">
+                    <li>Approx. 875–1025 sq. ft.</li>
+                    <li>Master bedroom with attached bath</li>
+                    <li>Balcony with community view*</li>
+                </ul>
+            </div>
+        </div>
+        <div class="vh-center">
+            <a href="{% url 'accounts:register' %}" class="vh-btn-solid">Start Application</a>
+        </div>
+    </div>
+</section>
+
+<section id="amenities" class="vh-section vh-section-light">
+    <div class="vh-section-inner">
+        <h2>Amenities That Support Your Lifestyle</h2>
+        <div class="vh-card-grid">
+            <div class="vh-card">
+                <h3>Community</h3>
+                <ul class="vh-list">
+                    <li>Gated entry and security</li>
+                    <li>Lift access to all floors</li>
+                    <li>Common areas for gatherings</li>
+                </ul>
+            </div>
+            <div class="vh-card">
+                <h3>Essentials</h3>
+                <ul class="vh-list">
+                    <li>24/7 water supply</li>
+                    <li>Power backup for common areas</li>
+                    <li>Dedicated parking options</li>
+                </ul>
+            </div>
+            <div class="vh-card">
+                <h3>Family-Friendly</h3>
+                <ul class="vh-list">
+                    <li>Play-friendly open spaces*</li>
+                    <li>Easy access to schools and markets</li>
+                    <li>Peaceful, residential surroundings</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="gallery" class="vh-section">
+    <div class="vh-section-inner">
+        <h2>Gallery Preview</h2>
+        <p class="vh-section-intro">
+            Get a feel for the community and interiors. You can later replace these placeholders with real photographs.
+        </p>
+        <div class="vh-gallery-grid">
+            <div class="vh-gallery-item vh-gallery-placeholder">Exterior</div>
+            <div class="vh-gallery-item vh-gallery-placeholder">Lobby / Entrance</div>
+            <div class="vh-gallery-item vh-gallery-placeholder">Typical Living Room</div>
+            <div class="vh-gallery-item vh-gallery-placeholder">Balcony View</div>
+        </div>
+    </div>
+</section>
+
+<section id="location" class="vh-section vh-section-light">
+    <div class="vh-section-inner vh-section-split">
+        <div>
+            <h2>Connected Location</h2>
+            <p>
+                Located in Hyderabad with quick access to main roads, workplaces, schools, and daily needs.
+                Replace this copy with your exact address and nearby landmarks.
+            </p>
+            <ul class="vh-list">
+                <li>5–10 minutes to major supermarkets*</li>
+                <li>Close to schools, clinics, and banks*</li>
+                <li>Easy access to IT corridors and main transit*</li>
+            </ul>
+        </div>
+        <div class="vh-map-placeholder">
+            Map / Google Maps Embed Placeholder
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="vh-section vh-contact-section">
+    <div class="vh-section-inner vh-contact-inner">
+        <div>
+            <h2>Contact Leasing</h2>
+            <p>
+                Have questions about availability, rent, or move-in dates? Share your details and we’ll reach out.
+            </p>
+            <form class="vh-contact-form">
+                <div class="vh-form-row">
+                    <input type="text" placeholder="Full Name">
+                    <input type="email" placeholder="Email">
+                </div>
+                <div class="vh-form-row">
+                    <input type="text" placeholder="Phone">
+                    <input type="text" placeholder="Preferred Move-In Month">
+                </div>
+                <textarea rows="4" placeholder="Your message or questions"></textarea>
+                <button type="button" class="vh-btn-solid">Submit (Static Demo)</button>
+            </form>
+            <p class="vh-contact-note">
+                This form is currently a static demo. Later we can connect it to email or a lead management system.
+            </p>
+        </div>
+        <div class="vh-contact-side">
+            <h3>Leasing Info</h3>
+            <p><strong>Vasantha Heights</strong></p>
+            <p>Hyderabad, Telangana, India</p>
+            <p>Phone: +91-814-257-7191</p>
+            <p>Email: vasanthanivas@gmail.com</p>
+            <p class="vh-contact-disclaimer">
+                *All details, layouts, and amenities are indicative. Final specifications may vary.
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

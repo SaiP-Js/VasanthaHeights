@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 
 User = get_user_model()
 
@@ -54,3 +56,36 @@ class RegistrationForm(forms.ModelForm):
             self.add_error("confirm_password", "Passwords do not match.")
 
         return cleaned
+# accounts/forms.py
+
+from django import forms
+from .models import ResidentAccount
+
+class ResidentAccountForm(forms.ModelForm):
+    terms_accepted = forms.BooleanField(required=True, label="I accept the Terms & Conditions")
+    promotional_opt_in = forms.BooleanField(required=False, label="Send me promotional emails")
+
+    class Meta:
+        model = ResidentAccount
+        fields = [
+            'first_name', 'middle_name', 'last_name', 'email', 'phone',
+            'address_line1', 'address_line2', 'address_line3',
+            'city', 'state', 'zip_code', 'country',
+            'terms_accepted', 'promotional_opt_in'
+        ]
+
+
+class VHLoginForm(AuthenticationForm):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Email',
+            'class': 'vh-input'
+        })
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Password',
+            'class': 'vh-input',
+            'id': 'password'
+        })
+    )

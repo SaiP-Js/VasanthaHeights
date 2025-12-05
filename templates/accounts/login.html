@@ -1,10 +1,57 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load form_extras %}
+
 {% block content %}
-<h1>Tenant / Owner Login</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
-<p><a href="{% url 'accounts:password_reset' %}">Forgot password?</a></p>
+<div class="vh-login-fullpage">
+    <!-- Top Banner -->
+    <div class="vh-login-banner">
+        <img src="{% static 'images/house.jpg' %}" alt="Vasantha Heights" class="vh-login-brand" />
+    </div>
+
+    <!-- Login Card -->
+    <div class="vh-login-card">
+        <h2 class="vh-login-title">User Login</h2>
+        <a href="#" class="vh-lang-switch">
+            🌐 Language
+        </a>
+
+        <form method="post" class="vh-login-form">
+            {% csrf_token %}
+            {% if form.errors %}
+                <p class="vh-error-message">Invalid credentials. Please try again.</p>
+            {% endif %}
+
+            <div class="vh-form-group">
+                {{ form.username|add_class:"vh-input" }}
+            </div>
+
+            <div class="vh-form-group vh-password-wrapper">
+                {{ form.password|add_class:"vh-input" }}
+                <span class="vh-show-password" onclick="togglePassword()">Show</span>
+            </div>
+
+            <button type="submit" class="vh-btn vh-btn-primary">Log In</button>
+
+            <button type="button" class="vh-btn vh-btn-secondary">Sign In Without Password</button>
+
+            <div class="vh-login-links">
+                <a href="{% url 'accounts:register' %}">Need to Sign Up?</a> |
+                <a href="{% url 'accounts:password_reset' %}">Forgot Password?</a>
+            </div>
+        </form>
+
+        <footer class="vh-login-footer">
+            <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a>
+            <p>&copy; {{ now|date:"Y" }} Vasantha Heights. All rights reserved.</p>
+        </footer>
+    </div>
+</div>
+
+<script>
+function togglePassword() {
+    const pwd = document.getElementsByName('password')[0];
+    pwd.type = pwd.type === 'password' ? 'text' : 'password';
+}
+</script>
 {% endblock %}
